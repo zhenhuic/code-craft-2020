@@ -9,6 +9,7 @@ import java.util.Map;
 public class Disarm {
 
     private List<TransferNet> transferNets = new ArrayList<>();
+    private List<List<Integer>> transferMatrix = new ArrayList<>();
 
     private void selectCycleTransfer(String filePath) {
         FileReader fileReader = null;
@@ -60,8 +61,23 @@ public class Disarm {
         if (transferNets.size() == 0) {
             transferNets.add(new TransferNet());
         }
+        List<TransferNet> netsBelongsTo = new ArrayList<>();
         for (TransferNet net : transferNets) {
-            
+            boolean transferMapContainsReceiveAccount = net.transferMap.containsKey(receiveAccount);
+            boolean receiveMapContainsTransferAccount = net.receiveMap.containsKey(transferAccount);
+
+            boolean receiveMapContainsReceiveAccount = net.receiveMap.containsKey(receiveAccount);
+            boolean transferMapContainsTransferAccount = net.transferMap.containsKey(transferAccount);  // out degree > 0
+
+            if (transferMapContainsReceiveAccount && receiveMapContainsTransferAccount) {
+                // TODO 网络中有循环路径
+
+            }
+
+            if (transferMapContainsReceiveAccount || receiveMapContainsTransferAccount || receiveMapContainsReceiveAccount) {
+                // 添加到该网络
+
+            }
         }
     }
 
